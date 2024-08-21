@@ -45,6 +45,11 @@ const getOrdersById = asyncHandler(async (req, res) => {
 //@route: POST /api/orders
 //@access: Private
 const addOrderItems = asyncHandler(async (req, res) => {
+    console.log("kkkkkkkkk");
+
+
+    
+console.log(req.body);
 
     const {
         orderItems,
@@ -80,7 +85,6 @@ const addOrderItems = asyncHandler(async (req, res) => {
         });
 
         const createdOrder = await order.save();
-        // console.log(order.user,"lllll");
         res.status(201).json(createdOrder);
 
     }
@@ -95,12 +99,9 @@ const UpdateOrderToPaid = asyncHandler(async (req, res) => {
     const order = await Order.findById(req.params.id);
     
     const details =  req.body;
-    console.log("kkkk",details,"details of deliverd ");
     if(order){
         order.isPaid = true;
         order.paidAt = Date.now();
-        console.log("req.params :" ,req.params);
-        console.log(req.body.status,"req.body.status,");
         order.paymentResult= {
             id:req.params.id,
             status:req.body.status,
@@ -109,7 +110,6 @@ const UpdateOrderToPaid = asyncHandler(async (req, res) => {
         }
         
         const UpdateOrder = await order.save();
-        console.log(UpdateOrder);
         res.status(200).json(UpdateOrder)
 
     }else{
@@ -125,7 +125,6 @@ const UpdateOrderToPaid = asyncHandler(async (req, res) => {
 //@access: Private/admin
 const UpdateOrderToDelivered = asyncHandler(async (req, res) => {
 const order = await Order.findById(req.params.id);
-console.log("ppppppppp");
     if(order) {
         order.isDeliverd = true;
         order.deliveredAt =Date.now();
@@ -134,8 +133,6 @@ console.log("ppppppppp");
 
         const updateOrder = await order.save();
 if (updateOrder.errors) {
-  console.log(updateOrder.errors);
-  console.log("hhhhhh");
 }
             res.status(200).json(updateOrder);
 

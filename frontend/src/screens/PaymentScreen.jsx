@@ -21,7 +21,7 @@ const PaymentScreen = () => {
         }else if(!paymentMethod){
             
         }
-    }, [shippingAddress, navigate])
+    }, [shippingAddress, navigate,paymentMethod])
 
 
     const submitHandler = (e) => {

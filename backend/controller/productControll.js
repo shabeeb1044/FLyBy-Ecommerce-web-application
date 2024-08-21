@@ -9,20 +9,15 @@ const getProduct = asyncHandler(async (req, res) => {
 
     const pageSize = process.env.PAGINATION_LIMIT;
     //  process.env.PAGINATION_LIMIT
-    console.log(Number(req.query.pageNumber));
     const page = Number(req.query.pageNumber) || 1;
 
     const keyword = req.query.keyword ? { name: { $regex: req.query.keyword, $options: 'i' } } : {};
 
     const count = await Product.countDocuments({ ...keyword });
 
-    console.log(page); // 2
-    console.log(count);//8
-    console.log(pageSize * (page - 1)); //2*(2-1) = 2
 
     const products = await Product.find({ ...keyword }).limit(pageSize).skip(pageSize * (page - 1));
 
-    console.log(products);
     res.json({
         products, page,
         pages: Math.ceil(count / pageSize)
@@ -74,9 +69,6 @@ const createProduct = asyncHandler(async (req, res) => {
 const updateProduct = asyncHandler(async (req, res) => {
     const { name, price, description, image, brand, category,
         countInStock } = req.body;
-    console.log(name, price, description, image, brand, category)
-    console.log(req.params);
-    console.log(req.params.id);
     const product = await Product.findById(req.params.id);
 
     if (product) {
@@ -129,9 +121,7 @@ const deleteProduct = asyncHandler(async (req, res) => {
 const createProductReview = asyncHandler(async (req, res) => {
     const { rating, comment } = req.body;
 
-    console.log("ssss");
     const product = await Product.findById(req.params.id);
-    console.log(product, "ttt");
     if (product) {
         const alreadyReviewed = product.reviews.find((review) =>
             review.user.toString() === req.user._id.toString());
@@ -147,9 +137,8 @@ const createProductReview = asyncHandler(async (req, res) => {
             user: req.user._id,
         }
         product.reviews.push(review);
-        console.log("jj");
         product.numReviews = product.reviews.length;
-        console.log('product.numReviews');
+        
         product.rating =
             // product.reviews.reduce((acc,review) => acc + review.rating,0)/
             // product.reviews/length;

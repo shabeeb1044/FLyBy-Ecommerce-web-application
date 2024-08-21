@@ -9,7 +9,7 @@ export const updateCart  =(state) => {
 
             // calculate shopping prize(if order over $100 then fee add $ 10 doller shipping fee )
  
-            state.shippingPrice = addDecimals(state.itemsPrice > 100 ? 0 : 10);
+            state.shippingPrice = addDecimals(state.itemsPrice > 500 ? 0 : 50);
             //calculate total price 15% tax
 
             state.taxPrice = addDecimals(Number((0.15 * state.itemsPrice).toFixed(2)))

@@ -22,7 +22,7 @@ console.log(Product);
                    <Rating value={Product.rating} text={`${Product.numReviews} reviews`} />
                 </Card.Text>
                 <Card.Text as="h3" className='pt-1'>
-                    ${Product.price}
+                ₹{Product.price}
                 </Card.Text>
             </Card.Body>
         </Card>

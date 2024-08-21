@@ -1,17 +1,16 @@
 
 import React, { useEffect } from 'react'
-import { Col, Row, ListGroup, Form, Image, Button, Card, Spinner, ListGroupItem } from 'react-bootstrap'
+import { Col, Row, ListGroup, Image, Button, Card } from 'react-bootstrap'
 import { Link, useParams } from 'react-router-dom'
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import {
   useDeliverOrderMutation,
   useGetOrderDetailsQuery,
   useGetPaypalClientIdQuery, usePayOrderMutation
 } from '../slice/orderApiSlice';
 import Message from '../components/Message';
-import Leader from '../components/Leader';
-import { PayPalButtons, usePayPalScriptReducer, PayPalScriptProvider } from '@paypal/react-paypal-js';
-import { ToastContainer, toast } from 'react-toastify';
+import { PayPalButtons, usePayPalScriptReducer } from '@paypal/react-paypal-js';
+import { toast } from 'react-toastify';
 import Loader from './Loader';
 const OrderScreen = () => {
   const { id: orderId } = useParams();
@@ -46,7 +45,7 @@ console.log("useInfo",userInfo,"useInfo");
     }
   }, [order, paypal, paypalDispatch, loadingPaypal, errorPaypal]);
 
-  const [deliverOrder,{data:deliver,isLoading:loadingDeliver}] = useDeliverOrderMutation()
+  const [deliverOrder,{isLoading:loadingDeliver}] = useDeliverOrderMutation()
 
   async function onApprove(data,actions) {
     return actions.order.capture().then(async function(details){
@@ -147,7 +146,7 @@ console.log(order,"[[][][][][");
                       <Link to={`/product/${item.product}`}>{item.name}</Link>
                     </Col>
                     <Col md={4}>
-                      {item.qty} X ${item.price} = {item.qty * item.price}
+                      {item.qty} X ₹{item.price} = {item.qty * item.price}
                     </Col>
                   </Row>
                 </ListGroup.Item>

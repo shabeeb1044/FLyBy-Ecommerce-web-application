@@ -10,7 +10,6 @@ import productRoutes from "./routes/productRoutes.js";
 import userRoutes from "./routes/userRoutes.js";
 import orderRoutes from "./routes/orderRoutes.js";
 import uploadRoutes from "./routes/uploadRoutes.js";
-
 import cookieParser from "cookie-parser";
 
 dotenv.config()
@@ -20,6 +19,7 @@ const __dirname = path.resolve();
 
 
 connetedDb();
+
 
 const app = express();
 
@@ -34,6 +34,7 @@ app.use("/api/upload", uploadRoutes)
 
 
 
+
 if(process.env.NODE_ENV === "production") {
     app.use(express.static(path.join(__dirname, "/frontend/build")));
     console.log("production");
@@ -43,8 +44,10 @@ if(process.env.NODE_ENV === "production") {
 } else {
     app.get("/", (req, res) => {
         res.send("api is running ...")
+        
     })
 }
+
 
 
 app.get("/api/config/paypal", (req, res) => res.send({clientId: process.env.PAYPAL_CLIENT_ID}));

@@ -7,15 +7,13 @@ import ChekoutSteps from '../components/ChekoutSteps'
 import Message from '../components/Message'
 import { useCreateOrderMutation } from "../slice/orderApiSlice"
 import { clearCartItems } from "../slice/cartSlice"
-{/* <Spinner name="circle"  color="red"> </Spinner>  */ }
-
 
 const PlaceOrder = () => {
     const navigate = useNavigate();
     const dispatch = useDispatch();
 
     const cart = useSelector((state) => state.cart);
-    const [createOrder, {isLoading,error}] = useCreateOrderMutation()
+    const [createOrder, { isLoading, error }] = useCreateOrderMutation()
     const { shippingAddress } = cart
     useEffect(() => {
         console.log(shippingAddress.address);
@@ -24,22 +22,22 @@ const PlaceOrder = () => {
         } else if (!cart.paymentMethod) {
             navigate("/placeorder")
         }
-    }, [cart.paymentMethod, cart.shippingAddress.address, navigate])
+    }, [cart.paymentMethod,shippingAddress.address, navigate])
 
     console.log(cart);
 
-    const placeOrderHandler = async ()=>{
+    const placeOrderHandler = async () => {
         try {
             console.log(cart.cartItems);
 
             const res = await createOrder({
                 orderItems: cart.cartItems,
                 shippingAddress,
-                paymentMethod:cart.PaymentMethod,
-                itemPrice:cart.itemsPrice,
+                paymentMethod: cart.PaymentMethod,
+                itemPrice: cart.itemsPrice,
                 shippingPrice: cart.shippingPrice,
-                taxPrice:cart.taxPrice,
-                totalPrice:cart.totalPrice
+                taxPrice: cart.taxPrice,
+                totalPrice: cart.totalPrice
             }).unwrap();
             dispatch(clearCartItems())
 
@@ -47,7 +45,7 @@ const PlaceOrder = () => {
 
         } catch (error) {
             toast.error(error);
-            
+
         }
     }
 
@@ -88,7 +86,7 @@ const PlaceOrder = () => {
                                                     </Link>
                                                 </Col>
                                                 <Col md={4}>
-                                                    {item.qty} X ${item.price} = ${item.qty * item.price}
+                                                    {item.qty} X ₹{item.price} = ₹{item.qty * item.price}
                                                 </Col>
                                             </Row>
                                         </ListGroup.Item>
@@ -108,45 +106,44 @@ const PlaceOrder = () => {
                             <ListGroup.Item>
                                 <Row>
                                     <Col>Items: </Col>
-                                    <Col>${cart.itemsPrice}</Col>
+                                    <Col>₹{cart.itemsPrice}</Col>
                                 </Row>
-
                             </ListGroup.Item>
                             <ListGroup.Item>
                                 <Row>
                                     <Col>Shipping: </Col>
-                                    <Col>${cart.shippingPrice}</Col>
+                                    <Col>₹{cart.shippingPrice}</Col>
                                 </Row>
 
                             </ListGroup.Item>
                             <ListGroup.Item>
                                 <Row>
                                     <Col>Tax: </Col>
-                                    <Col>${cart.taxPrice}</Col>
-                                </Row> 
+                                    <Col>₹{cart.taxPrice}</Col>
+                                </Row>
 
                             </ListGroup.Item>
                             <ListGroup.Item>
                                 <Row>
                                     <Col>Total price : </Col>
-                                    <Col>${cart.totalPrice}</Col>
-                                </Row> 
+                                    <Col>₹{cart.totalPrice}</Col>
+                                </Row>
                             </ListGroup.Item>
                             <ListGroup.Item>
                                 {error && <Message variant="danger">{error}</Message>}
                             </ListGroup.Item>
                             <ListGroup.Item>
-                               <Button
-                               type="button"
-                               className='btn-block'
-                               disabled={cart.cartItems.length == 0 }
-                               onClick= {placeOrderHandler}
-                               >
-                               Place Order
-                               </Button>
-                              
-                         {isLoading && (<Spinner name="circle"  color="red"> </Spinner>)}
-                            </ListGroup.Item>  
+                                <Button
+                                    type="button"
+                                    className='btn-block'
+                                    disabled={cart.cartItems.length === 0}
+                                    onClick={placeOrderHandler}
+                                >
+                                    Place Order
+                                </Button>
+
+                                {isLoading && (<Spinner name="circle" color="red"> </Spinner>)}
+                            </ListGroup.Item>
                         </ListGroup>
                     </Card>
 

@@ -1,13 +1,65 @@
 .header {
 
     border-radius: 1%;
-    background-color: gray !important;
+    background-color: rgba(0, 0, 0, 0.8);
+    color: white;
    
 }
-.search-div{
+/* .search-div{
   margin-right: 220px;
 
-}
+} */
 .logo{
-    width: 110px;
+    width: 90px;
+}
+
+.serach-input{
+  width: 300px;
+  height: 40px;
+  border-radius: 0;
+}
+
+.search-btn{
+  width: 60px;
+  height: 40px;
+  font-size: 13px;
+  font-family: Arial, Helvetica, sans-serif;
+  margin: 0;
+  border-radius: 0;
+}
+
+
+.navbar-toggler{
+  border-style: none;
+}
+
+.navbar-toggler.button:focus{
+  border-style: none;
+  box-shadow: none;
+}
+
+
+.nav-link:hover, .nav-link:focus{
+  color: white;
+}
+
+.navbar-nav a{
+  color: white;
+  font-size: 16px;
+}
+
+.header .navbar-nav .show > .nav-link{
+  color: white;
+}
+.header .navbar-nav .show > .nav-link, .navbar-nav .nav-link.active {
+  color: rgba(255, 255, 255, 0.862);
+}
+
+.step-menus   .nav-link{
+  color: black;
+}
+
+
+.dropdown-menu{
+  background-color: rgba(0, 0, 0, 0.8);
 }

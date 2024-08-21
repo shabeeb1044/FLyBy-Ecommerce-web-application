@@ -8,7 +8,6 @@ import FormContainer from '../../components/FormContainer'
 import { toast } from 'react-toastify'
 import { useGetUserDetailsQuery, useUpdateUserMutation } from '../../slice/usersApiSlice';
 
-import { LinkContainer } from 'react-router-bootstrap'
 import { Button, Form } from 'react-bootstrap'
 
 const UserEditScreen = () => {
@@ -21,7 +20,7 @@ const UserEditScreen = () => {
   const [isAdmin, setIsAdmin] = useState(false);
 
   const { data: user, isLoading, error, refetch } = useGetUserDetailsQuery(userId);
-  const [updateUser, { isLoading: updateLoading, error: updateError, }] = useUpdateUserMutation();
+  const [updateUser] = useUpdateUserMutation();
 
 
   useEffect(() => {
@@ -43,7 +42,7 @@ const UserEditScreen = () => {
       console.log(user);
       const data = {
         userId,name,email,isAdmin
-      }
+      };
       await updateUser(data);
       toast.success("User updated successfully");
       refetch();
@@ -58,7 +57,6 @@ const UserEditScreen = () => {
     // } else {
     //     toast.success('Product updated');
     //     navigate("/admin/productslist");
-
     // }
 
   }

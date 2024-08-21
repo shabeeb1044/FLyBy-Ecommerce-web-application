@@ -1,11 +1,10 @@
 
 import React from 'react'
-import { UseSelector, useSelector } from 'react-redux';
 import { LinkContainer } from 'react-router-bootstrap';
 import { Table, Button } from 'react-bootstrap';
 import Message from '../../components/Message';
 import Loader from '../Loader';
-import { FaTrash,FaTimes,FaEdit, FaCheck, } from 'react-icons/fa';
+import { FaTrash,FaEdit, FaCheck, } from 'react-icons/fa';
 import { useDeleteUserMutation, useGetUsersQuery } from '../../slice/usersApiSlice';
 import { toast } from 'react-toastify';
 

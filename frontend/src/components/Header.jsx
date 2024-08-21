@@ -9,7 +9,7 @@ import { Nav, Navbar, Container, Badge, NavDropdown } from 'react-bootstrap';
 import { FaUser, FaShoppingCart } from "react-icons/fa";
 import { LinkContainer } from "react-router-bootstrap"
 import { useDispatch, useSelector } from "react-redux"
-import logo from "../assets/flyby.png";
+import logo from "../assets/flybylogo.png";
 import SearchBox from './SearchBox';
 
 import { useLogoutMutation } from '../slice/usersApiSlice';
@@ -37,21 +37,22 @@ const Header = () => {
 
     return (
         <header>
-            <Navbar bg='primary' className='header' variant='dark' expand='lg' collapseOnSelect>
+            <Navbar className='header' variant='white' expand='lg' collapseOnSelect>
                 <Container>
                     <LinkContainer to="/">
                         <Navbar.Brand href='/' style={{ color: '#fff', fontFamily: 'YourChosenFont', fontSize: '24px' }}>
                             <img src={logo} alt="" className='logo' />
                         </Navbar.Brand>
                     </LinkContainer>
-                    <Navbar.Toggle aria-control='basic-navbar-nav' />
-                    <Navbar.Collapse id="basic-navbar-nav">
+                    <Navbar.Toggle aria-controls='basic-navbar-nav' />
+
+                    <Navbar.Collapse id="basic-navbar-nav" className='justify-content-between mt-md-0 mt-3 ' >
+                        <div className='search-div ms-auto'>
+                            <SearchBox />
+                        </div>
                         <Nav className='ms-auto'>
-                           <div className='search-div'>
-                           <SearchBox  />
-                           </div>
                             <LinkContainer to='/cart'>
-                                <Nav.Link to="#"> <FaShoppingCart />
+                                <Nav.Link to="#"> <FaShoppingCart className='me-1 menu-item' />
                                     Cart
                                     {
                                         cartItems.length > 0 && (
@@ -65,12 +66,12 @@ const Header = () => {
 
                             {userInfo ? (<NavDropdown title={userInfo.name} id="username" >
                                 <LinkContainer to="/profile">
-                                    <NavDropdown.Item>
+                                    <NavDropdown.Item className='menu-item'>
                                         Profile
                                     </NavDropdown.Item>
 
                                 </LinkContainer>
-                                <NavDropdown.Item onClick={logoutHandler}>
+                                <NavDropdown.Item onClick={logoutHandler} className='menu-item'>
                                     Logout
                                 </NavDropdown.Item>
 
@@ -80,13 +81,13 @@ const Header = () => {
                             {userInfo && userInfo.isAdmin && (
                                 <NavDropdown title='Admin' id="adminmenu">
                                     <LinkContainer to="/admin/productslist">
-                                        <NavDropdown.Item>Products</NavDropdown.Item>
+                                        <NavDropdown.Item className='nav-menus'>Products</NavDropdown.Item>
                                     </LinkContainer>
                                     <LinkContainer to="/admin/userlist">
-                                        <NavDropdown.Item>Users</NavDropdown.Item>
+                                        <NavDropdown.Item className='nav-menus'>Users</NavDropdown.Item>
                                     </LinkContainer>
                                     <LinkContainer to="/admin/orderlist">
-                                        <NavDropdown.Item>Orders</NavDropdown.Item>
+                                        <NavDropdown.Item className='nav-menus'>Orders</NavDropdown.Item>
                                     </LinkContainer>
 
                                 </NavDropdown >

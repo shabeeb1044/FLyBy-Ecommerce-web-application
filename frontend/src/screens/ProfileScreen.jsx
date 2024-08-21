@@ -5,7 +5,6 @@ import { LinkContainer } from 'react-router-bootstrap'
 import { toast } from "react-toastify";
 import {FaTimes} from "react-icons/fa"
 import Message from "../components/Message";
-import Leader from '../components/Leader';
 import { useProfileMutation } from "../slice/usersApiSlice";
 import { setCredential } from "../slice/authSlice";
 import {useGetMyOrderQuery} from "../slice/orderApiSlice";
@@ -25,7 +24,7 @@ const ProfileScreen = () => {
     const dispatch = useDispatch();
     const { userInfo } = useSelector((state) => state.auth);
 
-    const [updateProfile,{isLoading:loadingUpdateProfile,}]= useProfileMutation()
+    const [updateProfile]= useProfileMutation()
     useEffect(() => {
         if (userInfo) {
             setName(userInfo.name);
@@ -41,7 +40,7 @@ const ProfileScreen = () => {
     const submitHandler = async(e)   => {
         e.preventDefault();
         console.log("submitHandler");
-        if(password != confirmPassword){
+        if(password !== confirmPassword){
             toast("Password do not match")
         }else{
            

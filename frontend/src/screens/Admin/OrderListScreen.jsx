@@ -1,5 +1,4 @@
 import React from 'react'
-import { UseSelector, useSelector } from 'react-redux';
 import { LinkContainer } from 'react-router-bootstrap';
 import { Table, Button } from 'react-bootstrap';
 import { useGetOrdersQuery } from '../../slice/orderApiSlice';

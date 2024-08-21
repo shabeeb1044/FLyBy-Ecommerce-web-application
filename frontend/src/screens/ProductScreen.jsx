@@ -1,10 +1,9 @@
 
 import { Link } from 'react-router-dom';
-import { Form, Row, Col, Image, ListGroup, Card, Button, ListGroupItem, Spinner, FormControl, FormGroup, Carousel } from 'react-bootstrap';
+import { Form, Row, Col, Image, ListGroup, Card, Button, ListGroupItem, Carousel } from 'react-bootstrap';
 import Rating from '../components/Rating';
 import { useParams, useNavigate } from 'react-router-dom'
 import { useGetProductDetailsQuery, useCreateReviewMutation } from '../slice/productsApiSlice';
-import axios from "axios"
 import { useState } from 'react';
 import { addToCart } from '../slice/cartSlice';
 import { useDispatch, useSelector } from 'react-redux';
@@ -75,9 +74,8 @@ const ProductScreen = ({ match }) => {
             
 
              {product.images.length !== 0 ? (<Carousel variant="dark"  pause="hover"  className="bg-primary mb-4">
-                {  product.images .map(item => (
+                { product.images.map(item => (
                   <Carousel.Item  key={item._id}>
-
                     <Link to={`/product/${product._id}`}>
                       <Image className="carousal-img" src={item} alt={product.name} />
                       {/* <Carousel.Caption className='carousel-caption'>
@@ -100,7 +98,7 @@ const ProductScreen = ({ match }) => {
                   <Rating value={product.rating} text={product.numReviews} />
                 </ListGroup.Item>
                 <ListGroup.Item>
-                  Prize: $ {product.price}
+                  Prize: ₹ {product.price}
                 </ListGroup.Item>
                 <ListGroup.Item>
                   <strong>Description:</strong> {product.description}
@@ -114,7 +112,7 @@ const ProductScreen = ({ match }) => {
                     <Row>
                       <Col>Price:</Col>
                       <Col>
-                        <strong>$ {product.price} </strong>
+                        <strong>₹ {product.price} </strong>
                       </Col>
                     </Row>
                   </ListGroup.Item>

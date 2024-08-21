@@ -7,7 +7,6 @@ import FormContainer from '../../components/FormContainer'
 import { toast } from 'react-toastify'
 import { useUpdateProductMutation, useGetProductDetailsQuery, useUploadProductImageMutation } from '../../slice/productsApiSlice';
 
-import { LinkContainer } from 'react-router-bootstrap'
 import { Button, Form } from 'react-bootstrap'
 
 const ProductEditScreen = () => {
@@ -23,10 +22,10 @@ const ProductEditScreen = () => {
     const [countInStock, setCountInStock] = useState("");
     const [description, setDescription] = useState('');
 
-    const { data: product, isLoading, error, refetch } = useGetProductDetailsQuery(productId);
-    const [updateProduct, { isLoading: updateLoading, error: updateError, }] = useUpdateProductMutation();
+    const { data: product, isLoading, error } = useGetProductDetailsQuery(productId);
+    const [updateProduct] = useUpdateProductMutation();
 
-    const [uploadProductImage, { isError, isLoading: loadingUpload }] = useUploadProductImageMutation()
+    const [uploadProductImage, { isLoading: loadingUpload }] = useUploadProductImageMutation()
 
     useEffect(() => {
         if (product) {
@@ -74,7 +73,8 @@ const ProductEditScreen = () => {
     //      console.log(e.target.files[0]);
     // }
     const uploadFileHandler = async (e) => {
-        const file = e.target.files[0]; // Use [0] to get the first selected file
+        // const file = e.target.files[0];
+         // Use [0] to get the first selected file
 
         const formData = new FormData();
         formData.append("image", e.target.files[0]);

@@ -11,7 +11,6 @@ const authUser = asyncHandler(async (req, res) => {
     const { email, password } = req.body;
 
     const user = await User.findOne({ email });
-    console.log("authUser");
     if (user && (await user.matchPassword(password))) {
 
         genrateToken(res, user._id);
@@ -46,6 +45,7 @@ const registerUser = asyncHandler(async (req, res) => {
 
     });
     if (user) {
+
         genrateToken(res, user._id);
         res.status(201).json({
             _id: user._id,
@@ -69,7 +69,6 @@ const logoutUser = asyncHandler(async (req, res) => {
     res.cookie("jwt", "", {
         httpOnly: true,
         expires: new Date(0)
-
     })
     res.status(200).json({
         message: "Log out successfully"
@@ -86,7 +85,6 @@ const logoutUser = asyncHandler(async (req, res) => {
 const getUserProfile = asyncHandler(async (req, res) => {
 
 
-    console.log("5555000");
     const user = User.findById(req.user._id)
     if (user) {
         res.status(200).json({
@@ -112,7 +110,6 @@ const updateUserProfile = asyncHandler(async (req, res) => {
     if (user) {
         user.name = req.body.name || user.name;
         user.email = req.body.email || user.email;
-        // console.log(user.name, ".....", user.email);
         if (req.body.password) {
             user.password = req.body.password
         }
@@ -145,15 +142,14 @@ const getUsers = asyncHandler(async (req, res) => {
 const deleteUser = asyncHandler(async (req, res) => {
 
     const user = await User.findById(req.params.id);
-    if(user){
-        if(user.isAdmin){
+    if (user) {
+        if (user.isAdmin) {
             res.status(400);
             throw new Error("Cannot delete admin user");
-
         }
-        await user.deleteOne({_id:user._id});
-        res.status(200).json({message:"User Delete Successfully"})
-    }else{
+        await user.deleteOne({ _id: user._id });
+        res.status(200).json({ message: "User Delete Successfully" })
+    } else {
         res.status(404);
         throw new Error("User not Found")
     }
@@ -162,14 +158,14 @@ const deleteUser = asyncHandler(async (req, res) => {
 //@route: get /api/users/:id
 //@acces: Private/Admin
 const getUserById = asyncHandler(async (req, res) => {
-const user = await User.findById(req.params.id).select('-password');
-if(user){
-    res.status(200).json(user)
+    const user = await User.findById(req.params.id).select('-password');
+    if (user) {
+        res.status(200).json(user)
 
-}else{
-    res.status(404);
-    throw new Error("User not found")
-}
+    } else {
+        res.status(404);
+        throw new Error("User not found")
+    }
 });
 
 //@desc : update user profile
@@ -178,17 +174,17 @@ if(user){
 const updateUser = asyncHandler(async (req, res) => {
 
     const user = await User.findById(req.params.id);
-    if(user){
+    if (user) {
         user.name = req.body.name || user.name;
         user.email = req.body.email || user.email;
         user.isAdmin = Boolean(req.body.isAdmin);
         const updateUser = await user.save();
         res.status(200).json({
             _id: updateUser._id,
-            name:updateUser.name,
-            email:updateUser.email,
-            isAdmin:updateUser.isAdmin,
-            
+            name: updateUser.name,
+            email: updateUser.email,
+            isAdmin: updateUser.isAdmin,
+
         })
 
     }

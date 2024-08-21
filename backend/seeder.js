@@ -64,3 +64,5 @@ if(process.argv[2] ==  '-d'){
 }else{
     importData()
 }
+
+export default  importData;

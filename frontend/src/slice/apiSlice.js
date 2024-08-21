@@ -1,7 +1,6 @@
 
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import { BASE_URL } from "../constence";
-import {PRODUCTS_URL } from "../constence";
 const baseQuery = fetchBaseQuery({
   baseUrl: BASE_URL
 });

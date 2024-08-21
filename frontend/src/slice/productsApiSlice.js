@@ -12,7 +12,7 @@ import {PRODUCTS_URL, UPLOADS_URL } from "../constence";
                 }
              }),
                 keepUnusedDataFor:5,
-               
+
         }),
         getProductDetails: builder.query({
             query: (productId) => ({ 
